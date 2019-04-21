@@ -1,10 +1,5 @@
 import mongoose, {Schema, Document} from "mongoose";
-import uuidv1 from 'uuid/v1'
 const UserSchema: Schema = new Schema<any>({
-    UUID: {
-        default: uuidv1,
-        required: true
-    },
     firstName: {
         type: String,
         required: true
