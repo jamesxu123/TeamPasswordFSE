@@ -19,13 +19,16 @@ const UserSchema: Schema = new Schema<any>({
     }
 });
 
+UserSchema.methods.findByToken = (token: string) => {
+
+}
+
 
 export interface IUser extends Document {
-    UUID: string,
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
 }
 
 export default mongoose.model<IUser>('User', UserSchema);

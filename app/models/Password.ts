@@ -6,8 +6,8 @@ const PasswordSchema: Schema = new Schema<any>({
     }
 });
 
-export interface IPasswordSchema extends Document {
+export interface IPassword extends Document {
     vaultName: string,
 }
 
-export default mongoose.model<IPasswordSchema>('Password', PasswordSchema);
+export default mongoose.model<IPassword>('Password', PasswordSchema);

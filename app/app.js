@@ -3,6 +3,10 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
+import mongoose from 'mongoose'
+
+mongoose.connect('mongodb://localhost:27017/TeamPasswordFSE', {useNewUrlParser: true});
+
 const indexRouter = require('./routes')
 const usersRouter = require('./routes/users')
 
