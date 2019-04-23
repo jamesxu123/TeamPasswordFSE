@@ -53,7 +53,7 @@ class Permissions {
             if (err) {
                 res.status(403).send({error: 'Access Denied'});
             } else {
-                if (token['permission'] >= 2) {
+                if (decoded['permission'] >= 2) {
                     next();
                 } else {
                     res.status(403).send({error: 'Access Denied'});
@@ -64,6 +64,17 @@ class Permissions {
 
     static isGroupMember(req, res, next) {
         const token = this.getToken(req);
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+            if (err) {
+                res.status(403).send({error: 'Access Denied'});
+            } else {
+                if (decoded['permission'] >= 2) {
+                    next();
+                } else {
+                    res.status(403).send({error: 'Access Denied'});
+                }
+            }
+        });
     }
 }
 
