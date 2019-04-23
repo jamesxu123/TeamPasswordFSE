@@ -11,10 +11,9 @@ const jwt = require('jsonwebtoken');
 
 /*
 JWT: {
-    email: string,
-    permission: int,
+    email: string, REQUIRED
+    permission: int, REQUIRED
 }
-
  */
 
 class Permissions {
@@ -57,20 +56,20 @@ class Permissions {
         })
     }
 
-    static isGroupMember(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
-        const token: string = this.getToken(req);
-        jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
-            if (err) {
-                res.status(403).send({error: 'Access Denied'});
-            } else {
-                if (decoded['permission'] >= 2) {
-                    next();
-                } else {
-                    res.status(403).send({error: 'Access Denied'});
-                }
-            }
-        });
-    }
+    // static isGroupMember(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+    //     const token: string = this.getToken(req);
+    //     jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
+    //         if (err) {
+    //             res.status(403).send({error: 'Access Denied'});
+    //         } else {
+    //             if (decoded['permission'] >= 2) {
+    //                 next();
+    //             } else {
+    //                 res.status(403).send({error: 'Access Denied'});
+    //             }
+    //         }
+    //     });
+    // }
 }
 
 export default Permissions

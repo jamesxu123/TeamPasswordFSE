@@ -1,4 +1,5 @@
 import mongoose, {Schema, Document} from "mongoose";
+
 const UserSchema: Schema = new Schema<any>({
     firstName: {
         type: String,
@@ -16,12 +17,18 @@ const UserSchema: Schema = new Schema<any>({
     password: {
         type: String,
         required: true
+    },
+    permission: {
+        type: Number,
+        required: true,
+        default: 1
     }
 });
 
-UserSchema.methods.findByToken = (token: string) => {
-
-}
+UserSchema.methods.getPermission = async function (email: string) {
+    let user: IUser = await this.findOne({email: email});
+    return user['permission']
+};
 
 
 export interface IUser extends Document {
@@ -29,6 +36,7 @@ export interface IUser extends Document {
     lastName: string,
     email: string,
     password: string,
+    permission: number
 }
 
 export default mongoose.model<IUser>('User', UserSchema);

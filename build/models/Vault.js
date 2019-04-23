@@ -15,7 +15,8 @@ const Password_1 = __importDefault(require("./Password"));
 const VaultSchema = new mongoose_1.Schema({
     vaultName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     vaultAdmin_ids: {
         type: [String],

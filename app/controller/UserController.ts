@@ -27,13 +27,19 @@ class UserController {
         }
     }
 
-    static async loginWithPassword(email: string, password: string): Promise<boolean> {
+    static async loginWithPassword(email: string, password: string): Promise<any> {
         if (!email || !password) {
             throw new Error("A field is incomplete!");
         }
         return await User.findOne({"email": email}).exec().then(async userModel => {
             if (userModel != null) {
-                return argon2.verify(userModel['password'], password);
+                let result: boolean = await argon2.verify(userModel['password'], password);
+                if (result) {
+                    let json = {
+                        email: email,
+                        permission: User.schema.methods.getPermission(email)
+                    }
+                }
             } else {
                 return false;
             }
