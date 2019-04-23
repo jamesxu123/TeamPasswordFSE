@@ -1,7 +1,6 @@
-import * as express from 'express'
+import Express from 'express'
 import User from '../models/User'
-var jwt = require('jsonwebtoken');
-require('dotenv').load()
+const jwt = require('jsonwebtoken');
 
 // Permission Validation
 //
@@ -18,12 +17,8 @@ JWT: {
 
  */
 
-function findByToken(token) {
-    const tokenJSON = JSON.parse(token);
-}
-
 class Permissions {
-    static getToken(req) {
+    static getToken(req: any) {
         let token = req['headers']['x-access-token'] ? req['headers']['x-access-token'] : false;
 
         if (!token) {
@@ -32,13 +27,13 @@ class Permissions {
         return token;
     }
 
-    static isUser(req, res, next) {
-        const token = this.getToken(req);
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    static isUser(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+        const token: string = this.getToken(req);
+        jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
             if (err) {
                 res.status(403).send({error: 'Access Denied'});
             } else {
-                if (token['permission'] >= 1) {
+                if (decoded['permission'] >= 1) {
                     next();
                 } else {
                     res.status(403).send({error: 'Access Denied'});
@@ -47,9 +42,9 @@ class Permissions {
         })
     }
 
-    static isAdmin(req, res, next) {
-        const token = this.getToken(req);
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    static isAdmin(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+        const token: string = this.getToken(req);
+        jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
             if (err) {
                 res.status(403).send({error: 'Access Denied'});
             } else {
@@ -62,9 +57,9 @@ class Permissions {
         })
     }
 
-    static isGroupMember(req, res, next) {
-        const token = this.getToken(req);
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    static isGroupMember(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+        const token: string = this.getToken(req);
+        jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
             if (err) {
                 res.status(403).send({error: 'Access Denied'});
             } else {

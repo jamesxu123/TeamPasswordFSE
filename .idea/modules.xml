@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TeamPasswordFSE.iml" filepath="$PROJECT_DIR$/.idea/TeamPasswordFSE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../JavaChessAPI/.idea/JavaChessAPI.iml" filepath="$PROJECT_DIR$/../JavaChessAPI/.idea/JavaChessAPI.iml" />
     </modules>
   </component>
 </project>

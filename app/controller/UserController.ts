@@ -3,8 +3,6 @@ import * as argon2 from 'argon2'
 import * as jwt from 'jsonwebtoken'
 import Permissions from '../services/Permissions'
 
-require('dotenv').load();
-
 class UserController {
     static async makeUser(firstName: string, lastName: string, email: string, password: string): Promise<void | string> {
         if (!firstName || !lastName || !email || !password) {
