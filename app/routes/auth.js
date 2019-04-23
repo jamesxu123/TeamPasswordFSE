@@ -18,8 +18,11 @@ router.post('/create', (req, res, next) => {
 
 router.post('/loginWithPassword', async (req, res, next) => {
     let body = req.body
-    let result = await UserController.loginWithPassword(body['email'], body['password'])
-    res.send(result)
+    UserController.loginWithPassword(body['email'], body['password']).then(result => {
+        res.send(result);
+    }).catch(err => {
+        res.status(403).send(err.toString())
+    })
 })
 
 router.post('/loginWithToken', Permissions.isUser, (req, res, next) => {

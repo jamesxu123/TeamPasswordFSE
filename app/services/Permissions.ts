@@ -18,7 +18,7 @@ JWT: {
 
 class Permissions {
     static getToken(req: any) {
-        let token = req['headers']['x-access-token'] ? req['headers']['x-access-token'] : false;
+        let token = req['headers']['JWT'] || false;
 
         if (!token) {
             token = req.body.token;
@@ -27,6 +27,7 @@ class Permissions {
     }
 
     static isUser(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+        console.log("TOKEN " + req.headers['JWT']);
         const token: string = this.getToken(req);
         jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
             if (err) {
