@@ -1,9 +1,9 @@
-import Permissions from "../services/Permissions"
+import Permissions from "./Permissions"
 
 const express = require('express')
 const router = express.Router()
 
-import UserController from '../controller/UserController'
+import UserController from '../User/UserController'
 
 /* POST home page. */
 router.post('/create', (req, res, next) => {
@@ -25,8 +25,17 @@ router.post('/loginWithPassword', async (req, res, next) => {
     })
 })
 
-router.post('/loginWithToken', Permissions.isUser, (req, res, next) => {
-    res.sendStatus(200)
+router.post('/loginWithToken', Permissions.isLoggedIn, (req, res, next) => {
+    // UserController.loginWithToken(Permissions.getToken(req)).then(value => {
+    //     if (value) {
+    //         res.status(200).send(value)
+    //     } else {
+    //         res.status(403)
+    //     }
+    // }).catch(err => {
+    //     res.status(403).send(err.toString())
+    // })
+    res.status(200)
 })
 
 module.exports = router

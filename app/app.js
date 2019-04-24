@@ -8,8 +8,7 @@ import mongoose from 'mongoose'
 
 mongoose.connect('mongodb://localhost:27017/JavaChessAPI', {useNewUrlParser: true});
 
-const authRouter = require('./routes/auth')
-const usersRouter = require('./routes/users')
+const authRouter = require('./Auth/authRoute')
 
 const app = express()
 
@@ -20,8 +19,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRouter);
-app.use('/users', usersRouter);
-
 
 app.listen(3000)
 

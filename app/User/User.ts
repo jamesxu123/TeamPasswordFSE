@@ -25,12 +25,6 @@ const UserSchema: Schema = new Schema<any>({
     }
 });
 
-UserSchema.methods.getPermission = async function (email: string) {
-    let user: IUser = await this.findOne({email: email});
-    return user['permission']
-};
-
-
 export interface IUser extends Document {
     firstName: string,
     lastName: string,
