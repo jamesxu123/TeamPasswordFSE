@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import Permissions from "./Permissions"
 
-const express = require('express')
+// const express = require('express')
+import express from 'express'
 const router = express.Router()
 
 import UserController from '../User/UserController'
@@ -11,7 +13,6 @@ router.post('/create', (req, res, next) => {
     UserController.makeUser(body['firstName'], body['lastName'], body['email'], body['password']).then(msg => {
         res.send(msg)
     }).catch(error => {
-        console.log(error)
         res.send(error.message)
     })
 })
@@ -38,4 +39,5 @@ router.post('/loginWithToken', Permissions.isLoggedIn, (req, res, next) => {
     res.status(200)
 })
 
+// eslint-disable-next-line no-undef
 module.exports = router
