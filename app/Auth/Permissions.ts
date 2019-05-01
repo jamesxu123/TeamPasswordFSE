@@ -1,6 +1,6 @@
 import Express from 'express'
 import User from '../User/User'
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 // Permission Validation
 //
@@ -17,6 +17,7 @@ JWT: {
  */
 
 class Permissions {
+    static jwt_secret:string = process.env.JWT_SECRET || "";
     static getToken(req: Express.Request): string {
         let token: string = req.get("JWT") || '';
         if (token === '') {
@@ -27,7 +28,7 @@ class Permissions {
 
     static isLoggedIn(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
         const token: string = Permissions.getToken(req);
-        jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
+        jwt.verify(token, this.jwt_secret, (err: any, decoded: any) => {
             if (err) {
                 res.status(403).send({error: 'Access Denied'});
             } else {
@@ -42,7 +43,7 @@ class Permissions {
 
     static isAdmin(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
         const token: string = this.getToken(req);
-        jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
+        jwt.verify(token, this.jwt_secret, (err: any, decoded: any) => {
             if (err) {
                 res.status(403).send({error: 'Access Denied'});
             } else {
